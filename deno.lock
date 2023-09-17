@@ -8,5 +8,22 @@
     "https://deno.land/x/esbuild@v0.19.2/mod.js": "d619154b9c1cc70e8ee4b8db94fb01f00767c9e83089c135cede0cd3edd342a0",
     "https://deno.land/x/esbuild@v0.19.3/mod.d.ts": "731d681ecb8608b6c36efd170e169a72d35eaf5624c1e2e093d08ac2780f5c07",
     "https://deno.land/x/esbuild@v0.19.3/mod.js": "0099dd9e4ac7ea7a5f1f6c9a2cadb01318159c03521dcffcfbda4251b36e67c0"
+  },
+  "npm": {
+    "specifiers": {
+      "phaser@3.60.0": "phaser@3.60.0"
+    },
+    "packages": {
+      "eventemitter3@5.0.1": {
+        "integrity": "sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==",
+        "dependencies": {}
+      },
+      "phaser@3.60.0": {
+        "integrity": "sha512-IKUy35EnoEVcl2EmJ8WOyK4X8OoxHYdlhZLgRGpNrvD1fEagYffhVmwHcapE/tGiLgyrnezmXIo5RrH2NcrTHw==",
+        "dependencies": {
+          "eventemitter3": "eventemitter3@5.0.1"
+        }
+      }
+    }
   }
 }

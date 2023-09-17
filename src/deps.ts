@@ -1,18 +1,24 @@
 import { debounce } from "./utils/debounce.ts";
 import type * as Phaser from "npm:phaser@3.60.0";
 import type * as Main from "./main.ts";
-import type * as Test from "./test.ts";
+import type * as Constants from "./constants.ts";
+
 
 export enum ModuleId {
   Phaser = "npm:phaser@3.60.0",
   Main = "./main.js",
-  Test = "./test.js",
+  Constants = "./constants.js",
 }
+
+export const localModulePaths = [
+  ModuleId.Main,
+  ModuleId.Constants,
+];
 
 interface ModuleType {
   [ModuleId.Phaser]: typeof Phaser;
   [ModuleId.Main]: typeof Main;
-  [ModuleId.Test]: typeof Test;
+  [ModuleId.Constants]: typeof Constants;
 }
 
 export enum ModuleState {
@@ -38,7 +44,7 @@ _globalThis._modulesDeps = _modulesDeps;
 _globalThis._modulesIife = _modulesIife;
 
 export function requireAsync<D extends ModuleId>(dep: D, reload = false) {
-  const url = dep + (reload ? "?hash=" + Math.random() : '')
+  const url = dep + (reload ? "?timestamp=" + Date.now() : '')
   return import(url) as Promise<ModuleType[D]>;
 }
 
@@ -96,7 +102,7 @@ const deouncedReload = debounce(async (e) => {
   100
 )
 
-if(!_globalThis._eventListenerAdded) {
+if(!_globalThis._eventListenerAdded && globalThis.EventSource) {
   new EventSource("/esbuild").addEventListener(
     "change",
     deouncedReload,

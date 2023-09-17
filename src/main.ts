@@ -6,8 +6,8 @@ let _logo: Phaser.Physics.Arcade.Image;
 declareModule(
   ModuleId.Main,
   import.meta.url,
-  [ModuleId.Phaser, ModuleId.Test],
-  ({ [ModuleId.Phaser]: Phaser, [ModuleId.Test]: Test }, state) => {
+  [ModuleId.Phaser, ModuleId.Constants],
+  ({ [ModuleId.Phaser]: Phaser, [ModuleId.Constants]: Constants }, state) => {
     console.log("Phaser version:", Phaser.VERSION);
 
     class Example extends Phaser.Scene {
@@ -26,7 +26,7 @@ declareModule(
           blendMode: Phaser.BlendModes.ADD,
         });
 
-        _logo.setVelocity(100, Test.speed);
+        _logo.setVelocity(100, Constants.LOGO_SPEED_Y);
         _logo.setBounce(1, 1);
         _logo.setCollideWorldBounds(true);
 
@@ -50,7 +50,7 @@ declareModule(
     }
 
     if(state === ModuleState.RELOADING_SELF || state === ModuleState.RELOADING_DEPS) {
-      _logo.setVelocity(100, Test.speed);
+      _logo.setVelocity(Constants.LOGO_SPEED_X, Constants.LOGO_SPEED_Y);
     }
 
     if(state === ModuleState.RELOADING_SELF) {
