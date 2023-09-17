@@ -1,15 +1,13 @@
-import * as _Phaser from "npm:phaser@3.60.0";
-export const Phaser = _Phaser;
-import type * as Test from "./test.ts";
+import type * as Phaser from "npm:phaser@3.60.0";
 
 export enum Dep {
-  test = "./test.js",
+  Phaser = "npm:phaser@3.60.0",
 }
 
 interface DependencyTypes {
-  [Dep.test]: typeof Test;
+  [Dep.Phaser]: typeof Phaser;
 }
 
-export function importLocal(dep: Dep) {
-  return import(dep) as Promise<DependencyTypes[typeof dep]>;
+export function requireAsync<D extends Dep>(dep: D) {
+  return import(dep) as Promise<DependencyTypes[D]>;
 }

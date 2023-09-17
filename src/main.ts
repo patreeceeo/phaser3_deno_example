@@ -1,8 +1,6 @@
-import { Phaser, importLocal, Dep } from "./deps.ts";
+import { requireAsync, Dep } from "./deps.ts";
 
-const Test = await importLocal(Dep.test);
-
-console.log(Test.message);
+const Phaser = await requireAsync(Dep.Phaser);
 
 console.log("Phaser version:", Phaser.VERSION);
 
@@ -30,7 +28,7 @@ class Example extends Phaser.Scene {
   }
 }
 
-const config = {
+new Phaser.Game({
   type: Phaser.AUTO,
   width: 800,
   height: 600,
@@ -41,7 +39,5 @@ const config = {
     }
   },
   scene: Example
-};
-
-new Phaser.Game(config);
+});
 

@@ -17,7 +17,6 @@ export const BUILD_OPTIONS: BuildOptions = {
   ...CONTEXT,
   entryPoints: ["./src/main.ts", "./src/test.ts"],
   outdir: JS_DIR,
-  external: ["npm:phaser@3.60.0"],
   bundle: true,
   format: "esm",
 };
