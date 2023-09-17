@@ -1,5 +1,4 @@
 {
   "imports": {
-    "phaser": "./src/vendor/phaser/phaser.js"
   }
 }

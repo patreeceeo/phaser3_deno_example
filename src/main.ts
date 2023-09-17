@@ -1,4 +1,8 @@
-import * as Phaser from "phaser";
+import { Phaser, importLocal, Dep } from "./deps.ts";
+
+const Test = await importLocal(Dep.test);
+
+console.log(Test.message);
 
 if (location.hostname === "localhost") {
   new EventSource("/esbuild").addEventListener(
