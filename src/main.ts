@@ -4,13 +4,6 @@ const Test = await importLocal(Dep.test);
 
 console.log(Test.message);
 
-if (location.hostname === "localhost") {
-  new EventSource("/esbuild").addEventListener(
-    "change",
-    () => location.reload(),
-  );
-}
-
 console.log("Phaser version:", Phaser.VERSION);
 
 class Example extends Phaser.Scene {

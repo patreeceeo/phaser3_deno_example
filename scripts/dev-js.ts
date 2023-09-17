@@ -2,7 +2,17 @@
 import { esbuild } from "./deps.ts";
 import { BUILD_OPTIONS, WWW_DIR } from "./configure.ts";
 
-const context = await esbuild.context(BUILD_OPTIONS);
+const context = await esbuild.context({
+  ...BUILD_OPTIONS,
+  banner: {
+    js: `
+      new EventSource("/esbuild").addEventListener(
+        "change",
+        () => location.reload(),
+      );
+    `
+  }
+});
 
 context.serve({
   servedir: WWW_DIR,
