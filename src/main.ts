@@ -1,4 +1,4 @@
-import { declareModule, ModuleId } from "./deps.ts";
+import { declareModule, ModuleId, ModuleState } from "./deps.ts";
 
 let _game: Phaser.Game;
 let _logo: Phaser.Physics.Arcade.Image;
@@ -7,7 +7,7 @@ declareModule(
   ModuleId.Main,
   import.meta.url,
   [ModuleId.Phaser, ModuleId.Test],
-  ({ [ModuleId.Phaser]: Phaser, [ModuleId.Test]: Test }) => {
+  ({ [ModuleId.Phaser]: Phaser, [ModuleId.Test]: Test }, state) => {
     console.log("Phaser version:", Phaser.VERSION);
 
     class Example extends Phaser.Scene {
@@ -34,28 +34,28 @@ declareModule(
       }
     }
 
-    if(!_game) {
+    if(state === ModuleState.LOADING) {
       _game = new Phaser.Game({
         type: Phaser.AUTO,
         width: 800,
-        height: 600,
+        height: 800,
         physics: {
           default: "arcade",
           arcade: {
-            gravity: { y: 201 },
+            gravity: { y: 200 },
           },
         },
         scene: Example,
       });
-    } else {
+    }
+
+    if(state === ModuleState.RELOADING_SELF || state === ModuleState.RELOADING_DEPS) {
       _logo.setVelocity(100, Test.speed);
     }
 
-    return {
-      unload: () => {
-        console.log("unloading main");
-        _game.destroy(true);
-      },
-    };
+    if(state === ModuleState.RELOADING_SELF) {
+      console.log("unloading main");
+      _game.destroy(true);
+    }
   }
 );
