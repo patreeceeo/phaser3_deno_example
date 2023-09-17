@@ -15,6 +15,6 @@ export const CONTEXT: Context = {
 
 export const BUILD_OPTIONS: BuildOptions = {
   ...CONTEXT,
-  entryPoints: ["./src/main.ts", "./src/deps.ts"],
+  entryPoints: ["./src/main.ts"],
   outdir: JS_DIR,
 };
