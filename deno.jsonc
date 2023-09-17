@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
+  },
+  "tasks": {
+    "dev": "scripts/dev-js.ts"
+  },
+  "importMap": "import_map.jsonc"
+}
