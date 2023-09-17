@@ -15,7 +15,7 @@ export const CONTEXT: Context = {
 
 export const BUILD_OPTIONS: BuildOptions = {
   ...CONTEXT,
-  entryPoints: ["./src/main.ts"],
+  entryPoints: ["./src/main.ts", "./src/test.ts"],
   outdir: JS_DIR,
   bundle: true,
   format: "esm",
