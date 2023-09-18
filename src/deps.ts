@@ -66,7 +66,7 @@ export async function declareModule<Deps extends ModuleId[], Iife extends Module
 
 const deouncedReload = debounce(async (e) => {
     // attempt to hot reload the effected modules
-    console.log("[HMR]: received change event:", e.data);
+    console.log("[HMR]: received change event:", JSON.stringify(JSON.parse(e.data), null, 2));
     const data = JSON.parse(e.data);
     let success = false
     for(const url of Object.values(_modulesUrl)) {
