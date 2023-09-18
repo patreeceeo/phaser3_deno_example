@@ -26,11 +26,9 @@ declareModule(
           blendMode: Phaser.BlendModes.ADD,
         });
 
-        _logo.setVelocity(100, Constants.LOGO_SPEED_Y);
-        _logo.setBounce(1, 1);
-        _logo.setCollideWorldBounds(true);
 
         emitter.startFollow(_logo);
+        _game.events.emit("boot");
       }
     }
 
@@ -53,9 +51,14 @@ declareModule(
       });
     }
 
-    if(state === ModuleState.UNLOADING || state === ModuleState.RELOADING_DEPS) {
+    _game.events.on("boot", () => {
       _logo.setVelocity(Constants.LOGO_SPEED_X, Constants.LOGO_SPEED_Y);
-    }
+      _logo.setBounce(1, 1);
+      _logo.setCollideWorldBounds(true);
+    })
 
+    if(state === ModuleState.RELOADING_DEPS) {
+      _game.events.emit("boot");
+    }
   }
 );
