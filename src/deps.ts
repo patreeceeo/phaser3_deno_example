@@ -79,6 +79,7 @@ const deouncedReload = debounce(async (e) => {
         iife(depsMap, ModuleState.UNLOADING)
         const reloadedModule = await requireAsync(moduleId, true);
         // Find dependents and reload them too
+        // TODO: recursively. Use a stack to detect cycles.
         for(const [dependentModuleId, deps] of Object.entries(_modulesDeps) as [ModuleId, ModuleId[]][]) {
           if(deps!.indexOf(moduleId) >= 0) {
             const iife = _modulesIife[dependentModuleId]!;

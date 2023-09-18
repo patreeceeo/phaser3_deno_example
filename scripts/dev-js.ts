@@ -9,4 +9,7 @@ context.serve({
 }).then(async () => {
   await context.watch();
   await context.rebuild();
+  // TODO iterate over transpiled files, finding all import statements.
+  // If using a bare specifier, replace that with the URL from the import map
+  // else if it has a .ts extension, replace it .js
 });
