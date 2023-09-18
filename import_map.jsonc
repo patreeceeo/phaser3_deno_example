@@ -1,4 +1,6 @@
 {
   "imports": {
+    "deps": "./src/deps.ts",
+    "debounce": "./src/utils/debounce.ts"
   }
 }

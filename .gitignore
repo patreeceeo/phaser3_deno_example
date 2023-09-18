@@ -1,3 +1,2 @@
 
-public/assets/*.js
-public/assets/*.js.map
+public/assets/**/*.js*

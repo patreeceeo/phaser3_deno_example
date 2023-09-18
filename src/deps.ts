@@ -1,4 +1,4 @@
-import { debounce } from "./utils/debounce.ts";
+import { debounce } from "debounce";
 import type * as Phaser from "npm:phaser@3.60.0";
 import type * as Main from "./main.ts";
 import type * as Constants from "./constants.ts";
@@ -33,15 +33,10 @@ interface ModuleIife<Deps extends ModuleId[]> {
   (depsMap: DepsMap<Deps>, state: ModuleState): void
 }
 
-const _globalThis = globalThis as any;
-const _modulesUrl: Partial<Record<ModuleId, string>> = _globalThis._modulesUrl || {};
-const _urlsModule: Partial<Record<string, ModuleId>> = _globalThis._urlsModule || {};
-const _modulesDeps: Partial<Record<ModuleId, ModuleId[]>> = _globalThis._modulesDeps || {};
-const _modulesIife: Partial<Record<ModuleId, ModuleIife<any[]>>> = _globalThis._modulesIife || {};
-_globalThis._modulesUrl = _modulesUrl;
-_globalThis._urlsModule = _urlsModule;
-_globalThis._modulesDeps = _modulesDeps;
-_globalThis._modulesIife = _modulesIife;
+const _modulesUrl: Partial<Record<ModuleId, string>> = {};
+const _urlsModule: Partial<Record<string, ModuleId>> = {};
+const _modulesDeps: Partial<Record<ModuleId, ModuleId[]>> = {};
+const _modulesIife: Partial<Record<ModuleId, ModuleIife<any[]>>> = {};
 
 export function requireAsync<D extends ModuleId>(dep: D, reload = false) {
   const url = dep + (reload ? "?timestamp=" + Date.now() : '')
@@ -102,10 +97,9 @@ const deouncedReload = debounce(async (e) => {
   100
 )
 
-if(!_globalThis._eventListenerAdded && globalThis.EventSource) {
+if(globalThis.EventSource) {
   new EventSource("/esbuild").addEventListener(
     "change",
     deouncedReload,
   );
-  _globalThis._eventListenerAdded = true;
 }

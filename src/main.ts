@@ -1,4 +1,4 @@
-import { declareModule, ModuleId, ModuleState } from "./deps.ts";
+import { declareModule, ModuleId, ModuleState } from "deps";
 
 let _game: Phaser.Game;
 let _logo: Phaser.Physics.Arcade.Image;
@@ -34,6 +34,11 @@ declareModule(
       }
     }
 
+    if(state === ModuleState.RELOADING_SELF) {
+      console.log("unloading main");
+      _game.destroy(true);
+    }
+
     if(state === ModuleState.LOADING) {
       _game = new Phaser.Game({
         type: Phaser.AUTO,
@@ -53,9 +58,5 @@ declareModule(
       _logo.setVelocity(Constants.LOGO_SPEED_X, Constants.LOGO_SPEED_Y);
     }
 
-    if(state === ModuleState.RELOADING_SELF) {
-      console.log("unloading main");
-      _game.destroy(true);
-    }
   }
 );

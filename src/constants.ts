@@ -1,4 +1,4 @@
-import { declareModule, ModuleId } from "./deps.ts";
+import { declareModule, ModuleId } from "deps";
 
 declareModule(ModuleId.Constants, import.meta.url, [], () => {
   LOGO_SPEED_X = 300

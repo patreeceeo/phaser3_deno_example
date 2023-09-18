@@ -1,4 +1,4 @@
-import { localModulePaths } from "../src/deps.ts";
+import { localModulePaths } from "deps";
 import { esbuild } from "./deps.ts";
 
 type BuildOptions = esbuild.BuildOptions;
@@ -16,8 +16,7 @@ export const CONTEXT: Context = {
 
 export const BUILD_OPTIONS: BuildOptions = {
   ...CONTEXT,
-  entryPoints: localModulePaths.map((path) => `./src/${path}`),
+  entryPoints: ['./src/deps.ts', './src/utils/debounce.ts', ...localModulePaths.map((path) => `./src/${path}`)],
   outdir: JS_DIR,
-  bundle: true,
   format: "esm",
 };
