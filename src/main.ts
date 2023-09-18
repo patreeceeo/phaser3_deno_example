@@ -34,8 +34,7 @@ declareModule(
       }
     }
 
-    if(state === ModuleState.RELOADING_SELF) {
-      console.log("unloading main");
+    if(state === ModuleState.UNLOADING) {
       _game.destroy(true);
     }
 
@@ -54,7 +53,7 @@ declareModule(
       });
     }
 
-    if(state === ModuleState.RELOADING_SELF || state === ModuleState.RELOADING_DEPS) {
+    if(state === ModuleState.UNLOADING || state === ModuleState.RELOADING_DEPS) {
       _logo.setVelocity(Constants.LOGO_SPEED_X, Constants.LOGO_SPEED_Y);
     }
 

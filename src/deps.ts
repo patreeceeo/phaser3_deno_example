@@ -24,7 +24,7 @@ interface ModuleType {
 export enum ModuleState {
   LOADING,
   RELOADING_DEPS,
-  RELOADING_SELF,
+  UNLOADING,
 }
 
 type DepsMap<Deps extends ModuleId[]> = Pick<ModuleType, Deps[number]>
@@ -60,6 +60,7 @@ export async function declareModule<Deps extends ModuleId[], Iife extends Module
   _modulesIife[moduleId] = iife as any;
   const promises = deps.map((dep) => requireAsync(dep));
   const depsMap = await createDepsMap(promises, deps);
+  console.log("[HMR]: loading", moduleId);
   iife(depsMap, ModuleState.LOADING)
 }
 
@@ -74,7 +75,8 @@ const deouncedReload = debounce(async (e) => {
         const moduleId = _urlsModule[url]!;
         const depsMap = await createDepsMap(_modulesDeps[moduleId]!.map((dep) => requireAsync(dep)), _modulesDeps[moduleId]!);
         const iife = _modulesIife[moduleId]!;
-        iife(depsMap, ModuleState.RELOADING_SELF)
+        console.log("[HMR]: unloading", moduleId);
+        iife(depsMap, ModuleState.UNLOADING)
         const reloadedModule = await requireAsync(moduleId, true);
         // Find dependents and reload them too
         for(const [dependentModuleId, deps] of Object.entries(_modulesDeps) as [ModuleId, ModuleId[]][]) {
