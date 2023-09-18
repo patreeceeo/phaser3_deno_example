@@ -28,7 +28,7 @@ declareModule(
 
 
         emitter.startFollow(_logo);
-        _game.events.emit("boot");
+        _game.events.emit("configure");
       }
     }
 
@@ -51,14 +51,14 @@ declareModule(
       });
     }
 
-    _game.events.on("boot", () => {
+    _game.events.on("configure", () => {
       _logo.setVelocity(Constants.LOGO_SPEED_X, Constants.LOGO_SPEED_Y);
       _logo.setBounce(1, 1);
       _logo.setCollideWorldBounds(true);
     })
 
     if(state === ModuleState.RELOADING_DEPS) {
-      _game.events.emit("boot");
+      _game.events.emit("configure");
     }
   }
 );
